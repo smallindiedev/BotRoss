@@ -17,7 +17,7 @@ Personally, I recommend running the process through a process manager like [PM2]
 
 **Play**: Streams music from Youtube in the same voice channel as whoever activated the command. Either a specific video can be provided by ID, i.e !play {Video ID}, or the first result of a search is used, i.e !play search {Very Cool Search Terms}.
 
-**Exec**: Has the bot execute any JavaScript code that follows the command name. I mainly use it to easily control the bot user from Discord. It's currently designated adminOnly, but I would advise either stronger protections or outright removing the command if you plan on designating anyone other than yourself an admin, or if you don't need the commands capabilities.
+**Exec**: Has the bot execute any JavaScript code that follows the command name. I mainly use it to easily control the bot user from Discord. It's currently designated adminOnly, but **I would advise either stronger protections or outright removing the command** if you plan on designating anyone other than yourself an admin, or if you don't need the commands capabilities.
 
 ## FAQ
 Questions that no one has asked.
