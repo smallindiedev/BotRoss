@@ -1,4 +1,3 @@
-const { admin } = require('../config.json');
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const Discord = require('discord.js');
@@ -7,12 +6,12 @@ module.exports = {
 	name: 'play',
 	description: 'Plays audio from a youtube link or ID in the sender\'s voice channel.\nAlternatively, searches for the first result based on provided search terms.',
 	aliases: ['song', 'playsong'],
-	args: true,
+	argsRequired: true,
 	usage: '<youtube link (full link or video ID)>\n!play search <search terms>',
 	//allowedRoles: [],
 	//additional properties,
 	execute(message, args) {
-		if (!message.member.voiceChannel && message.author.id != admin)
+		if (!message.member.voiceChannel)
 		{
 			message.reply('You must be in a voice channel to use this command.');
 			console.log((new Date().toLocaleString('en-US')) + `: Command attempted while not in a voice channel. ('${this.name}' by ${message.author.username})`);
@@ -21,22 +20,6 @@ module.exports = {
 		if (message.client.voiceConnections.has(message.guild.id))
 		{
 			let voiceCh = message.client.voiceConnections.get(message.guild.id).channel;
-			if (voiceCh.connection.dispatcher)
-				voiceCh.connection.dispatcher.end();
-			voiceCh.leave();
-			console.log((new Date().toLocaleString('en-US')) + `: Left the ${voiceCh.name} voice channel of ${voiceCh.guild.name} due to new command activation. ('${this.name}' by ${message.author.username})`);
-		}
-		else if (message.channel.id == '433505927686258710' && message.client.voiceConnections.has('384946952758099970'))
-		{
-			let voiceCh = message.client.voiceConnections.get('384946952758099970').channel;
-			if (voiceCh.connection.dispatcher)
-				voiceCh.connection.dispatcher.end();
-			voiceCh.leave();
-			console.log((new Date().toLocaleString('en-US')) + `: Left the ${voiceCh.name} voice channel of ${voiceCh.guild.name} due to new command activation. ('${this.name}' by ${message.author.username})`);
-		}
-		else if (message.channel.id == '436324307648512001' && message.client.voiceConnections.has('435623941143527460'))
-		{
-			let voiceCh = message.client.voiceConnections.get('435623941143527460').channel;
 			if (voiceCh.connection.dispatcher)
 				voiceCh.connection.dispatcher.end();
 			voiceCh.leave();
@@ -91,31 +74,7 @@ module.exports = {
 	},
 
 	playAudio(message, ytLink) {
-		let voiceCh;
-		if (message.channel.id == '433505927686258710')
-		{
-			voiceCh = message.client.channels.get('384946952758099970');
-			console.log((new Date().toLocaleString('en-US')) + `: Command activated in ${message.channel.name} channel. ('${this.name}' by ${message.author.username})`);
-		}
-		else if (message.channel.id == '436324307648512001')
-		{
-			voiceCh = message.client.channels.get('435623941143527460');
-			console.log((new Date().toLocaleString('en-US')) + `: Command activated in ${message.channel.name} channel. ('${this.name}' by ${message.author.username})`);
-		}
-		else if (message.author.id == admin)
-		{
-			for (let channel of message.guild.channels)
-			{
-				if (channel[1].type === 'voice')
-				{
-					console.log((new Date().toLocaleString('en-US')) + `: Voice channel found after admin activation. ('${this.name}' by ${message.author.username})`);
-					voiceCh = channel[1];
-					break;
-				}
-			}
-		}
-		else
-			voiceCh = message.member.voiceChannel;
+		let voiceCh = message.member.voiceChannel;
 
 		if (!voiceCh)
 		{
