@@ -1,0 +1,14 @@
+{
+	"name": "botross",
+	"version": "2.0.0",
+	"description": "A Discord bot written using Discord.js, for various functions.",
+	"main": "bot.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "smallindiedev",
+	"license": "MIT",
+	"dependencies": {
+		"discord.js": "^11.4.2"
+	}
+}
