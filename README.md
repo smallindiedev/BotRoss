@@ -13,9 +13,11 @@ Before running the bot for the first time, make sure the appropriate fields in y
 Personally, I recommend running the process through a process manager like [PM2](https://pm2.io/doc/en/runtime/overview/). The most helpful features being an easy way to view console logs and automatically restart the process in the event of a failure.
 
 ## Commands
-Currently, the only provided command is help. Feel free to submit an issue if you would like a new command to be drafted.
-
 **Help**: The help command lists all commands currently loaded by the bot. If an argument is supplied, the command lists detailed information about the command, i.e `!help help`.
+
+**Play**: Streams music from Youtube in the same voice channel as whoever activated the command. Either a specific video can be provided by ID, i.e !play {Video ID}, or the first result of a search is used, i.e !play search {Very Cool Search Terms}.
+
+**Exec**: Has the bot execute any JavaScript code that follows the command name. I mainly use it to easily control the bot user from Discord. It's currently designated adminOnly, but **I would advise either stronger protections or outright removing the command** if you plan on designating anyone other than yourself an admin, or if you don't need the commands capabilities.
 
 ## FAQ
 Questions that no one has asked.
