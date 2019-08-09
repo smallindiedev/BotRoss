@@ -4,7 +4,7 @@
 //OPTIONAL: Admin is an array of User ID strings. Admins bypass any limits set on commands.
 //OPTIONAL: MessageTracking is the ID of a Channel that the bot uses to report message edits and deletes.
 
-const { token, prefix, admin, messageTracking } = require('./config.json');
+const { token, prefix, testPrefix, admin, messageTracking } = require('./config.json');
 const Discord = require('discord.js');
 const fs = require('fs');
 
@@ -51,13 +51,23 @@ client.on('message', message => {
 	//Ignore messages from any bot accounts, including this one.
 	if (message.author.bot) return;
 
-	//Ignores messages that do not start with the given prefix. (default '!')
-	//Respond to any message in general above this point.
-	if (!message.content.startsWith(prefix)) return;
-
-	//Parses the message into arguments and retrieves the [potential] command name.
-	const args = message.content.slice(prefix.length).split(/ +/);
-	const commandName = args.shift().toLowerCase();
+	//Check if the message starts with the chosen prefix (default '!')
+	//Or if an admin message starts with the chosen test prefix (default '!test_')
+	//Returns otherwise. Responses to ALL messages should go above this block.
+	let adminTesting = false;
+	let args, commandName;
+	if (admin.includes(message.author.id) && message.content.startsWith(testPrefix))
+	{
+		adminTesting = true;
+		args = message.content.slice(testPrefix.length).split(/ +/);
+		commandName = args.shift().toLowerCase();
+	}
+	else if (message.content.startsWith(prefix))
+	{
+		args = message.content.slice(prefix.length).split(/ +/);
+		commandName = args.shift().toLowerCase();
+	}
+	else return;
 
 	//Attempts to find the command by name or alias, returning if it does not exist.
 	const command = client.commands.get(commandName)
@@ -76,7 +86,7 @@ client.on('message', message => {
 
 	//Permission checks and cooldown management happen in this block.
 	//User IDs designated as admin in the config file bypass these rules.
-	if (!admin.includes(message.author.id))
+	if (!admin.includes(message.author.id) || adminTesting)
 	{
 		//Checks to see if the command is admin only.
 		if (command.adminOnly)

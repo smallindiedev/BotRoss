@@ -1,6 +1,7 @@
 {
 	"token": "0",
 	"prefix": "!",
+	"testPrefix": "!test_",
 	"admin": [],
 	"messageTracking": "0"
 }
