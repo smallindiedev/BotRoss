@@ -35,6 +35,9 @@ Descriptions of the properties found in the config.json file.
 *Prefix*:
 Defaults to '!'. This represents what you would like to use to denote bot commands in Discord, i.e !help. This can theoretically be a string of any length, although an uncommonly used symbol would be advised.
 
+*TestPrefix*:
+Defaults to '!test_'. This prefix exists to test command permissions as an admin. Since admins by default bypass any permission checks on commands, this was added to simulate command usage through the eyes of a regular user.
+
 *Admin*:
 An array of *User IDs* that you would like to designate as admins for the bot. In general, admins are not restricted by any properties on commands, such as cooldowns and blacklisted channels. To get a user's User ID, right click on their name in Discord and select 'Copy ID' (requires Developer Mode to be enabled).
 
